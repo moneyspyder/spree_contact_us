@@ -10,6 +10,7 @@ class Spree::ContactUs::ContactsController < Spree::StoreController
       end
       redirect_to(spree.root_path, :notice => Spree.t('contact_us.notices.success'))
     else
+      @taxonomies = Spree::Taxonomy.includes(root: :children)
       render :new
     end
   end
