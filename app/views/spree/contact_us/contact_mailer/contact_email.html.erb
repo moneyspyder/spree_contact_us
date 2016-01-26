@@ -1,3 +1,10 @@
-<p><%= @contact.message %></p>
+<p>
+  <%=
+    # show line breaks - TODO: probably should use plugin for this
+    ActionController::Base.helpers.strip_tags(
+      @contact.message).gsub(/(?:\n\r?|\r\n?)/, '<br>').split('<br><br>').reject(&:empty?).join('<br><br>'
+    ).html_safe
+  %>
+</p>
 <p>---------------------</p>
 <p><%= SpreeContactUs.require_name ? Spree.t(:sent_by_name, :email => @contact.email, :name => @contact.name) : Spree.t(:sent_by_contact_form, :email => @contact.email) %></p>
